@@ -4,20 +4,23 @@ import { add } from '../redux/cartSlice';
 import { fetchProducts } from '../redux/productSlice';
 import { Card, Button, Container, Row, Spinner } from 'react-bootstrap';
 import { FaCartPlus } from 'react-icons/fa';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Home = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.data);
+  const [localQuantities, setLocalQuantities] = useState({});
 
   const handleClick = (product) => {
-    dispatch(add(product));
+    const updatedQuantity = (localQuantities[product.id] || 0) + 1;
+    dispatch(add({ ...product, quantity: updatedQuantity }));
+    setLocalQuantities((prevQuantities) => ({ ...prevQuantities, [product.id]: updatedQuantity }));
+    toast.success(`${product.title} - (${updatedQuantity}) added to cart`, { toastStyle: { background: '#4caf50', color: '#ffffff' } });
   };
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
-
-  const [hoveredItem, setHoveredItem] = useState(null);
 
   return (
     <Container className="mt-4">
@@ -50,15 +53,13 @@ const Home = () => {
                   onClick={() => handleClick(item)}
                   style={{
                     marginTop: 'auto',
-                    backgroundColor: hoveredItem === item.id ? '#2c3036' : '#343a40',
+                    backgroundColor: localQuantities[item.id] ? '#2c3036' : '#343a40',
                     borderColor: '#343a40',
                     display: 'flex',
                     alignItems: 'center',
                     transition: 'background-color 0.3s',
                     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                   }}
-                  onMouseEnter={() => setHoveredItem(item.id)}
-                  onMouseLeave={() => setHoveredItem(null)}
                 >
                   <FaCartPlus style={{ marginRight: '8px' }} />
                   Add to Cart
@@ -68,11 +69,13 @@ const Home = () => {
           ))
         ) : (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
-            <Spinner animation="border" role="status" style={{ width: "10rem", height: "10rem" }}>
+            <Spinner animation="border" role="status" style={{ width: '7rem', height: '7rem' }}>
               <span className="visually-hidden">Loading...</span>
             </Spinner>
-          </div>)}
+          </div>
+        )}
       </Row>
+      <ToastContainer />
     </Container>
   );
 };
