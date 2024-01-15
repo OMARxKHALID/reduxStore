@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { add } from '../redux/cartSlice';
 import { fetchProducts } from '../redux/productSlice';
-import { Card, Button, Container, Row } from 'react-bootstrap';
+import { Card, Button, Container, Row, Spinner } from 'react-bootstrap';
 import { FaCartPlus } from 'react-icons/fa';
 
 const Home = () => {
@@ -67,8 +67,11 @@ const Home = () => {
             </Card>
           ))
         ) : (
-          <p className="text-center">No products available</p>
-        )}
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+            <Spinner animation="border" role="status" style={{ width: "10rem", height: "10rem" }}>
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>)}
       </Row>
     </Container>
   );
