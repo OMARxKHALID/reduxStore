@@ -15,7 +15,7 @@ const Home = () => {
     const updatedQuantity = (localQuantities[product.id] || 0) + 1;
     dispatch(add({ ...product, quantity: updatedQuantity }));
     setLocalQuantities((prevQuantities) => ({ ...prevQuantities, [product.id]: updatedQuantity }));
-    toast.success(`${product.title} - (${updatedQuantity}) added to cart`, { toastStyle: { background: '#4caf50', color: '#ffffff' } });
+    toast.success(`${product.title} - (${updatedQuantity}) added to cart`, { toastStyle: { background: '#4caf50', color: '#ffffff' }, autoClose: 1000 });
   };
 
   useEffect(() => {
