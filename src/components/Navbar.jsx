@@ -15,7 +15,7 @@ const Header = () => {
         </Navbar.Brand>
         <Nav className="mx-auto">
           <Navbar.Brand className="text-center" as={Link} to="/" style={{ color: '#fff', fontSize: '3rem', fontWeight: 'bold' }}>
-            React eSTORE  
+            REACT eSTORE  
           </Navbar.Brand>
         </Nav>
         <Nav className="ml-auto align-items-center">
