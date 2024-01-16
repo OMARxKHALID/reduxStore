@@ -32,12 +32,11 @@ const cartSlice = createSlice({
     },
     updateQuantity: (state, action) => {
       const { itemId, newQuantity } = action.payload;
-      const existingItem = state.find(item => item.id === itemId);
-
-      if (existingItem) {
-        existingItem.quantity = newQuantity;
-      }
-      saveCartToLocalStorage(state);
+      const updatedCart = state.map(item => 
+        item.id === itemId ? { ...item, quantity: newQuantity } : item
+      );
+      saveCartToLocalStorage(updatedCart);
+      return updatedCart;
     },
   },
 });

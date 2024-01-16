@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { add } from '../redux/cartSlice';
 import { fetchProducts } from '../redux/productSlice';
@@ -9,12 +9,11 @@ import { toast, ToastContainer } from 'react-toastify';
 const Home = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.data);
-  const [localQuantities, setLocalQuantities] = useState({});
+  const cart = useSelector((state) => state.cart);
 
   const handleClick = (product) => {
-    const updatedQuantity = (localQuantities[product.id] || 0) + 1;
+    const updatedQuantity = (cart.find((item) => item.id === product.id)?.quantity || 0) + 1;
     dispatch(add({ ...product, quantity: updatedQuantity }));
-    setLocalQuantities((prevQuantities) => ({ ...prevQuantities, [product.id]: updatedQuantity }));
     toast.success(`${product.title} - (${updatedQuantity}) added to cart`, { toastStyle: { background: '#4caf50', color: '#ffffff' }, autoClose: 1000 });
   };
 
@@ -53,7 +52,6 @@ const Home = () => {
                   onClick={() => handleClick(item)}
                   style={{
                     marginTop: 'auto',
-                    backgroundColor: localQuantities[item.id] ? '#2c3036' : '#343a40',
                     borderColor: '#343a40',
                     display: 'flex',
                     alignItems: 'center',
