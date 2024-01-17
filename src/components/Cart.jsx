@@ -21,7 +21,8 @@ const Cart = () => {
   };
 
   return (
-    <Container className="mt-4">
+
+    <div className="mt-4">
       <div className="text-center mb-4">
         <h2>
           Shopping Cart
@@ -89,7 +90,7 @@ const Cart = () => {
           Proceed to Checkout <FaArrowRight className="ml-2" />
         </Button>
       </div>
-    </Container>
+    </div>
   );
 };
 
