@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { remove, updateQuantity } from '../redux/cartSlice';
-import { Button, Container, Table } from 'react-bootstrap';
-import { FaMinus, FaPlus, FaTrash, FaArrowRight } from 'react-icons/fa';
+import { Button, Table } from 'react-bootstrap';
+import { FaMinus, FaPlus, FaTrash, FaArrowRight, FaShoppingCart } from 'react-icons/fa';
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart);
@@ -21,15 +21,15 @@ const Cart = () => {
   };
 
   return (
-
     <div className="mt-4">
       <div className="text-center mb-4">
-        <h2>
-          Shopping Cart
-        </h2>
+        <h2>Shopping Cart</h2>
       </div>
       {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <div className="text-center" >
+          <p >Your cart is currently empty.</p>
+          <FaShoppingCart size={150} color="#ccc" style={{ height: '50vh' }} />
+        </div>
       ) : (
         <Table striped bordered hover responsive>
           <thead>
@@ -43,8 +43,8 @@ const Cart = () => {
           <tbody>
             {cartItems.map((item) => (
               <tr key={item.id}>
-                <td className="align-middle">
-                  <div className="d-flex align-items-center">
+                <td className="align-middle" >
+                  <div className="d-flex align-items-center" >
                     <span className="ml-2">{item.title}</span>
                   </div>
                 </td>
@@ -82,13 +82,17 @@ const Cart = () => {
           </tbody>
         </Table>
       )}
+
       <div className="text-center mt-3">
-        <h4>Total: ${calculateTotal()}</h4>
+        {cartItems.length > 0 && <h4>Total: ${calculateTotal()}</h4>}
       </div>
+
       <div className="text-center mt-4">
-        <Button variant="dark" className="checkout-button">
-          Proceed to Checkout <FaArrowRight className="ml-2" />
-        </Button>
+        {cartItems.length > 0 && (
+          <Button variant="dark" className="checkout-button">
+            Proceed to Checkout <FaArrowRight className="ml-2" />
+          </Button>
+        )}
       </div>
     </div>
   );
