@@ -54,6 +54,7 @@ const Cart = () => {
                       variant="outline-dark"
                       onClick={() => handleQuantity(item.id, item.quantity - 1)}
                       disabled={item.quantity === 1}
+                      style={{ padding: '0.2rem 0.5rem', fontSize: '0.8rem' }}
                     >
                       <FaMinus size={8} />
                     </Button>
@@ -61,6 +62,7 @@ const Cart = () => {
                     <Button
                       variant="outline-dark"
                       onClick={() => handleQuantity(item.id, item.quantity + 1)}
+                      style={{ padding: '0.2rem 0.5rem', fontSize: '0.8rem' }}
                     >
                       <FaPlus size={8} />
                     </Button>
@@ -71,7 +73,7 @@ const Cart = () => {
                     variant="danger"
                     onClick={() => handleRemove(item.id)}
                   >
-                    <FaTrash />
+                    <FaTrash/>
                   </Button>
                 </td>
               </tr>

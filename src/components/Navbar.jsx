@@ -11,18 +11,18 @@ const Header = () => {
     <Navbar bg="dark" expand="lg" variant="dark">
       <div className="container">
         <Navbar.Brand as={Link} to="/">
-          <FiHome size={35} style={{ color: '#fff' }} />
+          <FiHome size={30} style={{ color: '#fff' }} />
         </Navbar.Brand>
         <Nav className="mx-auto">
-          <Navbar.Brand className="text-center" as={Link} to="/" style={{ color: '#fff', fontSize: '3rem', fontWeight: 'bold' }}>
+          <Navbar.Brand className="text-center" as={Link} to="/" style={{ color: '#fff', fontSize: '1.8rem', fontWeight: 'bold' }}>
             REACT eSTORE  
           </Navbar.Brand>
         </Nav>
         <Nav className="ml-auto align-items-center">
           <Nav.Link as={Link} to="/cart" className="position-relative" style={{ color: '#fff' }}>
-            <FiShoppingCart size={35} />
+            <FiShoppingCart size={30} />
             {items.length > 0 && (
-              <span className="badge badge-danger ml-1 cart-badge" style={{ fontSize: '1.2rem', color: '#fff', borderRadius: '50%', padding: '0.3rem 0.6rem' }}>{items.length}</span>
+              <span className="badge badge-danger ml-1 cart-badge" style={{ fontSize: '1rem', color: '#fff', borderRadius: '50%', padding: '0.3rem 0.6rem' }}>{items.length}</span>
             )}
           </Nav.Link>
         </Nav>
