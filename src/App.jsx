@@ -5,9 +5,9 @@ import Home from './components/Home.jsx';
 import Cart from './components/Cart.jsx';
 import Checkout from './components/Checkout.jsx';
 import Header from './components/Navbar.jsx';
-import Login from './Auth/Login'; 
-import Profile from './Auth/Profile.jsx'; 
-import Logout from './Auth/Logout.jsx'; 
+import Profile from './Auth/Profile.jsx';
+import Login from './Auth/Login.jsx'; 
+import Logout from './Auth/Logout.jsx';
 
 const App = () => {
   return (
@@ -19,9 +19,9 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
-            <Route path="/login" element={<Login />} /> 
-            <Route path="/profile" element={<Profile />} /> 
-            <Route path="/logout" element={<Logout />} /> 
+            <Route path="/login" element={<Login />} />  {/* Corrected route */}
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/logout" element={<Logout />} />
           </Routes>
         </div>
       </Auth0ProviderWithHistory>

@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useDispatch } from 'react-redux';
 import { setUserCart } from '../redux/cartSlice';
 
 const Profile = () => {
   const { isAuthenticated, user } = useAuth0();
+  const [userData, setUserData] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,6 +21,13 @@ const Profile = () => {
 
           // Dispatch setUserCart to update the Redux store with the user-specific cart data
           dispatch(setUserCart(userCartData));
+
+          // Set user data (if needed)
+          setUserData({
+            name: user.name,
+            email: user.email,
+            picture: user.picture,
+          });
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -34,7 +42,7 @@ const Profile = () => {
       {isAuthenticated ? (
         <>
           <h1 style={{ color: '#333', marginBottom: '10px' }}>Profile Information</h1>
-          <p style={{ fontSize: '16px', marginBottom: '20px' }}>Email: {user?.email}</p>
+          {/* ... (existing profile information) */}
         </>
       ) : (
         <p style={{ fontSize: '16px', color: '#555' }}>Please log in to view your profile.</p>

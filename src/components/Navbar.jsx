@@ -6,7 +6,7 @@ import { FiHome, FiShoppingCart, FiLogIn, FiLogOut, FiUser } from 'react-icons/f
 import { useAuth0 } from '@auth0/auth0-react';
 
 const Header = () => {
-  const { isAuthenticated, loginWithRedirect, user } = useAuth0();
+  const { isAuthenticated } = useAuth0();
   const items = useSelector((state) => state.cart);
 
   return (
@@ -32,7 +32,7 @@ const Header = () => {
                 </Nav.Link>
               </>
             ) : (
-              <Nav.Link onClick={() => loginWithRedirect()} style={{ color: '#fff', marginRight: '8px', cursor: 'pointer' }}>
+              <Nav.Link as={Link} to="/login" style={{ color: '#fff', marginRight: '8px', cursor: 'pointer' }}>
                 <FiLogIn size={25} />
               </Nav.Link>
             )}

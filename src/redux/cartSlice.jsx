@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const loadCartFromLocalStorage = () => {
   const storedCart = localStorage.getItem("cart");
-  return storedCart ? JSON.parse(storedCart) : [];
+  return storedCart ? JSON.parse(storedCart) : { generalCart: [], userCart: [] };
 };
 
 const saveCartToLocalStorage = (cart) => {
@@ -14,57 +14,50 @@ const cartSlice = createSlice({
   initialState: loadCartFromLocalStorage(),
   reducers: {
     add: (state, action) => {
-      const { id, title, price } = action.payload;
-      const existingItem = state.find(item => item.id === id);
-    
+      const { id, title, price, userId } = action.payload;
+      const cartToUpdate = userId ? 'userCart' : 'generalCart';
+      const existingItem = state[cartToUpdate].find(item => item.id === id);
+
       if (existingItem) {
-        // Clone the existingItem to avoid mutating the original state
         const updatedItem = { ...existingItem, quantity: existingItem.quantity + 1 };
-        const updatedState = state.map(item => (item.id === id ? updatedItem : item));
-        saveCartToLocalStorage(updatedState);
-        return updatedState;
+        state[cartToUpdate] = state[cartToUpdate].map(item => (item.id === id ? updatedItem : item));
       } else {
-        // Clone the state before pushing the new item
-        const updatedState = [...state, { id, title, price, quantity: 1 }];
-        saveCartToLocalStorage(updatedState);
-        return updatedState;
+        state[cartToUpdate].push({ id, title, price, quantity: 1 });
       }
+
+      saveCartToLocalStorage(state);
     },
     remove: (state, action) => {
-      const itemId = action.payload;
-      const newState = state.filter(item => item.id !== itemId);
-      saveCartToLocalStorage(newState);
-      return newState;
+      const { itemId, userId } = action.payload;
+      const cartToUpdate = userId ? 'userCart' : 'generalCart';
+      state[cartToUpdate] = state[cartToUpdate].filter(item => item.id !== itemId);
+      saveCartToLocalStorage(state);
     },
-    removeAll: (state) => {
-      saveCartToLocalStorage([]);
-      return [];
+    removeAll: (state, action) => {
+      const { userId } = action.payload;
+      const cartToUpdate = userId ? 'userCart' : 'generalCart';
+      state[cartToUpdate] = [];
+      saveCartToLocalStorage(state);
     },
     updateQuantity: (state, action) => {
-      const { itemId, newQuantity } = action.payload;
-      const updatedCart = state.map(item => 
+      const { itemId, newQuantity, userId } = action.payload;
+      const cartToUpdate = userId ? 'userCart' : 'generalCart';
+      state[cartToUpdate] = state[cartToUpdate].map(item =>
         item.id === itemId ? { ...item, quantity: newQuantity } : item
       );
-      saveCartToLocalStorage(updatedCart);
-      return updatedCart;
+      saveCartToLocalStorage(state);
     },
-    // setUserCart: (state, action) => {
-    //   const userCart = action.payload;
-    //   saveCartToLocalStorage(userCart);
-    //   return userCart;
-    // },
     setUserCart: (state, action) => {
-      // Separate user-specific cart from the main cart state
-      state.userCart = action.payload;
-      saveCartToLocalStorage(state.data);
+      const { userId, cartData } = action.payload;
+      state.userCart = cartData;
+      saveCartToLocalStorage(state);
     },
     clearUserCart: (state) => {
-      // Clear user-specific cart
       state.userCart = [];
-      saveCartToLocalStorage(state.userCart); 
+      saveCartToLocalStorage(state);
     },
   },
 });
 
-export const { add, remove, removeAll, updateQuantity, setUserCart } = cartSlice.actions;
+export const { add, remove, removeAll, updateQuantity, setUserCart, clearUserCart } = cartSlice.actions;
 export default cartSlice.reducer;
