@@ -1,14 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useDispatch } from 'react-redux';
+import { setUserCart } from '../redux/cartSlice';
 
 const Profile = () => {
   const { isAuthenticated, user } = useAuth0();
   const [userData, setUserData] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (isAuthenticated) {
+          // Get the user's Auth0 sub (subject) identifier
+          const userSub = user.sub;
+
+          // Fetch user-specific cart data from the server
+          const response = await fetch(`/api/cart/${userSub}`);
+          const userCartData = await response.json();
+
+          // Dispatch setUserCart to update the Redux store with the user-specific cart data
+          dispatch(setUserCart(userCartData));
+
+          // Set user data (if needed)
           setUserData({
             name: user.name,
             email: user.email,
@@ -21,7 +35,7 @@ const Profile = () => {
     };
 
     fetchData();
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated, user, dispatch]);
 
   return (
     <div style={{ textAlign: 'center', padding: '20px' }}>
