@@ -35,7 +35,6 @@ const Profile = () => {
           />
           <p style={{ fontSize: '18px', marginBottom: '8px' }}>Name: {userData?.name}</p>
           <p style={{ fontSize: '16px', color: '#555', marginBottom: '20px' }}>Email: {userData?.email}</p>
-          {/* Add additional user data and styling as needed */}
         </>
       ) : (
         <p style={{ fontSize: '16px', color: '#555' }}>Please log in to view your profile.</p>

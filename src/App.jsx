@@ -7,6 +7,7 @@ import Checkout from './components/Checkout.jsx';
 import Header from './components/Navbar.jsx';
 import Login from './Auth/Login'; 
 import Profile from './Auth/Profile.jsx'; 
+import Logout from './Auth/Logout.jsx'; 
 
 const App = () => {
   return (
@@ -20,7 +21,7 @@ const App = () => {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/login" element={<Login />} /> 
             <Route path="/profile" element={<Profile />} /> 
-
+            <Route path="/logout" element={<Logout />} /> 
           </Routes>
         </div>
       </Auth0ProviderWithHistory>

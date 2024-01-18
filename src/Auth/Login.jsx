@@ -7,7 +7,7 @@ const Login = () => {
   const buttonStyle = {
     padding: "10px 20px",
     fontSize: "16px",
-    backgroundColor: "#3498db", // Blue color, you can change this
+    backgroundColor: "#3498db",
     color: "white",
     border: "none",
     borderRadius: "4px",
