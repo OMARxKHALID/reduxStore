@@ -2,11 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
-import { FiHome, FiShoppingCart, FiLogIn, FiLogOut, FiUser } from 'react-icons/fi';
-import { useAuth0 } from '@auth0/auth0-react';
+import { FiHome, FiShoppingCart } from 'react-icons/fi';
 
 const Header = () => {
-  const { isAuthenticated } = useAuth0();
   const items = useSelector((state) => state.cart);
 
   return (
@@ -22,20 +20,6 @@ const Header = () => {
         </Nav>
         <Nav className="ml-auto">
           <div className="d-flex align-items-center">
-            {isAuthenticated ? (
-              <>
-                <Nav.Link as={Link} to="/profile" style={{ color: '#fff', marginRight: '8px' }}>
-                  <FiUser size={25} />
-                </Nav.Link>
-                <Nav.Link as={Link} to="/logout" style={{ color: '#fff', marginRight: '8px', cursor: 'pointer' }}>
-                  <FiLogOut size={25} />
-                </Nav.Link>
-              </>
-            ) : (
-              <Nav.Link as={Link} to="/login" style={{ color: '#fff', marginRight: '8px', cursor: 'pointer' }}>
-                <FiLogIn size={25} />
-              </Nav.Link>
-            )}
             <Nav.Link as={Link} to="/cart" className="position-relative" style={{ color: '#fff' }}>
               <FiShoppingCart size={25} />
               {items.length > 0 && (
