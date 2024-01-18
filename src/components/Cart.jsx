@@ -33,7 +33,7 @@ const Cart = () => {
           <Col sm={12}>
             <div className="text-center">
               <p>Your cart is currently empty.</p>
-              <FaShoppingCart size={150}  color="#ccc" style={{ height: '50vh' }} />
+              <FaShoppingCart size={150} color="#ccc" style={{ height: '50vh' }} />
             </div>
           </Col>
         ) : (
@@ -94,9 +94,9 @@ const Cart = () => {
             {cartItems.length > 0 && <h4>Total: ${calculateTotal()}</h4>}
             {cartItems.length > 0 && <p>Total Items: {totalProducts}</p>}
           </div>
-          <div className="text-center mt-4">
+          <div className="text-center mt-4 mb-4">
             {cartItems.length > 0 && (
-              <Button as={Link} to="/checkout"  variant="dark" className="checkout-button">
+              <Button as={Link} to="/checkout" variant="dark" >
                 Proceed to Checkout <FaArrowRight className="ml-2" />
               </Button>
             )}

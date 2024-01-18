@@ -6,6 +6,7 @@ import { removeAll } from '../redux/cartSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
+
 const Checkout = () => {
     const [formData, setFormData] = useState({
         fullName: '',
@@ -43,11 +44,11 @@ const Checkout = () => {
     };
 
     return (
-        <div>
-            <div className="mt-4">
+        <div style={{ padding: '15px' }} >
+            <div className="mt-3">
                 <Row>
                     <Col md={6}>
-                        <h2 className="mb-4">Checkout</h2>
+                        <h2 style={{ marginBottom: '20px' }}>Checkout</h2>
                         <Form noValidate>
                             {Object.entries(formData).map(([key, value]) => (
                                 <Form.Group key={key} controlId={key}>
@@ -58,17 +59,23 @@ const Checkout = () => {
                                         name={key}
                                         value={value}
                                         onChange={handleInputChange}
+                                        style={{ width: '100%', marginBottom: '15px' }}
                                     />
                                 </Form.Group>
                             ))}
-                            <Button variant="dark" onClick={handleCheckout} className="mt-3">
-                                Complete Purchase <FaArrowRight className="ml-2" />
+                            <Button
+                                variant="dark"
+                                onClick={handleCheckout}
+                                className="mt-3"
+                                style={{ width: '100%' }}
+                            >
+                                Complete Purchase <FaArrowRight style={{ marginLeft: '5px' }} />
                             </Button>
                         </Form>
                     </Col>
-                    <Col md={3} className="container mt-5 border rounded p-4">
-                        <h3 className="mb-3">Order Summary</h3>
-                        <div className="text-right">
+                    <Col md={3} style={{ marginTop: '20px' }} className="container border rounded p-4">
+                        <h3 style={{ marginBottom: '15px' }}>Order Summary</h3>
+                        <div style={{ textAlign: 'left' }}>
                             <strong>Total items: {cartItems.reduce((total, item) => total + item.quantity, 0)}</strong>
                             <br />
                             <strong>Total: ${cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}</strong>
