@@ -30,6 +30,10 @@ const cartSlice = createSlice({
       saveCartToLocalStorage(newState);
       return newState;
     },
+    removeAll: (state) => {
+      saveCartToLocalStorage([]);
+      return [];
+    },
     updateQuantity: (state, action) => {
       const { itemId, newQuantity } = action.payload;
       const updatedCart = state.map(item => 
@@ -41,5 +45,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { add, remove, updateQuantity } = cartSlice.actions;
+export const { add, remove, removeAll, updateQuantity } = cartSlice.actions;
 export default cartSlice.reducer;

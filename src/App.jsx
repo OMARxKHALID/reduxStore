@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Cart from './components/Cart.jsx';
 import Header from './components/Navbar.jsx';
 import Home from './components/Home.jsx';
+import Checkout from './components/Checkout.jsx';
 
 const App = () => {
   return (
@@ -13,6 +14,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+
         </Routes>
       </div>
     </div>
